@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/TestClass")
 public class TestClass extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+     UserRegister user;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,6 +28,7 @@ public class TestClass extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("test");
+        user=new UserRegister("id","pwd");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 	/**
