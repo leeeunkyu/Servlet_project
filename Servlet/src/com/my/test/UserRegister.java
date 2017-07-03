@@ -4,7 +4,7 @@ public class UserRegister {
 
 	public UserRegister(String id, String pwd) {
 		// TODO Auto-generated constructor stub
-			System.out.println(id+":id값"+pwd+"pwd값");
+			System.out.println("id값: "+id+"pwd값:  "+pwd);
 			JDBC JD = new JDBC();
 			JD.UserRegi(id,pwd);
 	}

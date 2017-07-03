@@ -28,7 +28,7 @@ public class TestClass extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("test");
-        user=new UserRegister("id","pwd");
+        //user=new UserRegister("test아이디","yest비밀번호");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 	/**
@@ -36,7 +36,9 @@ public class TestClass extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		JsonProcess jp = new JsonProcess();
+		jp.process(request,response);
+	//	doGet(request, response);
 	}
 
 }
