@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.access;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TestClass
+ * Servlet implementation class Authentication
  */
-@WebServlet("/TestClass")
-public class TestClass extends HttpServlet {
+@WebServlet("/Authentication")
+public class Authentication extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     UserRegister user;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestClass() {
+    public Authentication() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,24 +27,18 @@ public class TestClass extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String result=null;
-
-		System.out.println("test");
-        //user=new UserRegister("test아이디","yest비밀번호");
-//		response.setHeader("result: ","test");
-
-		response.getWriter().append(result);
+		response.getWriter().append("Authentication..");
+		System.out.println("승인요청");
+		Verify vf= new Verify("id","pwd");
+		vf.VerifyUser();
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String result;
-		JsonProcess jp = new JsonProcess();
-		result=jp.process(request,response);
-		response.getWriter().append(result);
-	//	doGet(request, response);
+		doGet(request, response);
 	}
 
 }

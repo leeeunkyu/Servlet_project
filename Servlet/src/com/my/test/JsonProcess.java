@@ -14,25 +14,34 @@ import javax.servlet.http.HttpServletResponse;
 public class JsonProcess {
     UserRegister user_regi;
     UserLogin user_login;
-	public void test(String[] array, HttpServletResponse response) {
+    String result;
+	public String test(String[] array, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		switch (array[3]) {
 		case "sign up":
 			user_regi=new UserRegister(array[7],array[11]);
-			break;
+			result = user_regi.adduser();
+			System.out.println("리턴값: "+result);
+//			response.setHeader("result: ", result);
+			return result;
 		case "sign in":
 			user_login=new UserLogin(array[7],array[11]);
+			result = user_login.checkuser();
+			System.out.println("리턴값: "+result);
+//			response.setHeader("result: ", result);
+			return result;
 		default:
 			break;
 		}
+		return result;
 	}
-	public void process(HttpServletRequest req, HttpServletResponse resp)
+	public String process(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String result = JsonProcess.getBody(req);
 		String[] array = result.split("\"");
 		System.out.println("json 결과값"+result);		
 		
-		test(array, resp);
+		return test(array, resp);
 	}
 	public static String getBody(HttpServletRequest request) throws IOException {
 		String body = null;

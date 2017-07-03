@@ -1,6 +1,10 @@
-package com.my.test;
+package com.my.log;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TestClass
+ * Servlet implementation class Log
  */
-@WebServlet("/TestClass")
-public class TestClass extends HttpServlet {
+@WebServlet("/Log")
+public class Log extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     UserRegister user;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestClass() {
+    public Log() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,24 +31,18 @@ public class TestClass extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String result=null;
+		System.out.println("출입기록 확인");
+		CheckLog cl = new CheckLog("id","pwd");
+		cl.log();
+		}
 
-		System.out.println("test");
-        //user=new UserRegister("test아이디","yest비밀번호");
-//		response.setHeader("result: ","test");
-
-		response.getWriter().append(result);
-	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String result;
-		JsonProcess jp = new JsonProcess();
-		result=jp.process(request,response);
-		response.getWriter().append(result);
-	//	doGet(request, response);
+		doGet(request, response);
+		
 	}
 
 }
