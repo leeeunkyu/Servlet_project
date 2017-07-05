@@ -32,9 +32,13 @@ public class Log extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("출입기록 확인");
+		String result;
 		CheckLog cl = new CheckLog("id","pwd");
-		cl.log();
-		}
+		result=cl.log();
+		System.out.println(result);
+		response.getWriter().append(result);
+
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -11,10 +11,10 @@ public class CheckLog {
 		user_pwd=pwd;
 	}
 
-	public void log() {
+	public String log() {
 		// TODO Auto-generated method stub
 		JDBC JD = new JDBC();
-		JD.UserLog(user_id,user_pwd);
+		return JD.UserLog(user_id,user_pwd);
 	}
 
 }

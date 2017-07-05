@@ -31,6 +31,7 @@ public class JsonProcess {
 //			response.setHeader("result: ", result);
 			return result;
 		default:
+			System.out.println("test¿ë");
 			break;
 		}
 		return result;

@@ -27,10 +27,10 @@ public class Authentication extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Authentication..");
 		System.out.println("½ÂÀÎ¿äÃ»");
 		Verify vf= new Verify("id","pwd");
 		vf.VerifyUser();
+		response.getWriter().append("Authentication..");
 	}
 
 	/**
