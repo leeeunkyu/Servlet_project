@@ -19,15 +19,33 @@ public class JsonProcess {
 		// TODO Auto-generated method stub
 		switch (array[3]) {
 		case "sign up":
-			user_regi=new UserRegister(array[7],array[11]);
-			result = user_regi.adduser();
-			System.out.println("리턴값: "+result);
-//			response.setHeader("result: ", result);
-			return result;
+			System.out.println("--------------------------------회원가입 시도------------------------");
+			String result=null;
+			String filter_result=null;
+			System.out.println("test");
+			Filter_user fu = new Filter_user(array[7],array[11]);
+			filter_result=fu.filtering_id();
+			if(filter_result.equals("id_ok")){
+				
+				if(fu.filtering_injection()){
+					user_regi=new UserRegister(array[7],array[11]);
+					result = user_regi.adduser();
+					System.out.println("회원가입 리턴값-------> "+result);
+//					response.setHeader("result: ", result);
+					return result;
+				}else{
+					return "injection";
+				}
+
+			}else{
+				return "id_overlap";
+			}
+
 		case "sign in":
+			System.out.println("--------------------------------로그인시도--------------------------");
 			user_login=new UserLogin(array[7],array[11]);
 			result = user_login.checkuser();
-			System.out.println("리턴값: "+result);
+			System.out.println("로그인 리턴값---------> "+result);
 //			response.setHeader("result: ", result);
 			return result;
 		default:

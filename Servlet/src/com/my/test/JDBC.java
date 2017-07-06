@@ -33,8 +33,6 @@ public class JDBC {
 	public String UserRegi(String id, String pwd) {
 		// TODO Auto-generated method stub
 		try{
-			System.out.println("원본 비밀번호: "+pwd);
-			System.out.println("비밀번호 해쉬화");
 			String Sha_result="";
 		//	byte[] salt = new byte[1];
 			int salt=0;
@@ -53,9 +51,10 @@ public class JDBC {
 			pstmt.setString(2, Sha_result);
 			pstmt.setInt(3, salt);
 			pstmt.executeUpdate();
-			System.out.println("저장한 솔트값"+salt);
-
-			System.out.println("회원등록완료");	
+			System.out.println("저장된 id -> "+id);
+			System.out.println("저장된 패스워드 -> "+Sha_result);
+			System.out.println("저장된 salt -> "+salt);
+			System.out.println("---------------------회원등록완료---------------------");	
 			return "success";
 			
 		} catch(IllegalArgumentException e){
@@ -79,40 +78,32 @@ public class JDBC {
 			pstmt_check.setString(1, id);
 			rs_check = pstmt_check.executeQuery();
 			while(rs_check.next()){
-				System.out.println("읽어들인 솔트값"+rs_check.getInt("salt"));
 				checktext=rs_check.getInt("salt");
 			}
-			
+			if(pstmt_check != null) try{pstmt_check.close();}catch(SQLException sqle){}            // PreparedStatement 객체 해제
+
+			if(con != null) try{con.close();}catch(SQLException sqle){}            // Connection 해제
+			con = DriverManager.getConnection(dburl, db_id, db_pw);
 			pstmt = con.prepareStatement("SELECT * FROM UserInfo");
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-//				 System.out.println(rs.getString("id"));
-//				 System.out.println(rs.getString("pwd"));
+				 System.out.println("id 검색결과-->"+rs.getString("id"));
+				 System.out.println("id 검색결과2-->"+rs.getString("id").toString());
+
 				 if(id.equals(rs.getString("id"))){
-//					 returnpwd=hashpwd(checktext, pwd);
-					 System.out.println(checktext+"   /    "+pwd);
-					 System.out.println("비밀번호 비교");
-					 System.out.println(rs.getString("pwd"));
-//					 System.out.println(returnpwd);
 					 if(checktext==(rs.getInt("salt"))){
-						 System.out.println("솔트가 같다");
 						 returnpwd=hashpwd(checktext, pwd);
 						 if(returnpwd.equals(rs.getString("pwd"))){
-							 System.out.println("정상적인 로그인");
+							 System.out.println("----------------------------정상적인 로그인-------------------");
 							 return "success";
-							
 						 }else{
-							 System.out.println("can't search pwd");
-							 return "can't search pwd";
+							 System.out.println("----------------------------can't search pwd---------------");
 						 }
 					 }else{
-						 System.out.println("salt error");
-						 return "salt error";
-
+						 System.out.println("--------------------------------salt error----------------------");
 					 }
 				 }else{
-					 System.out.println("can't search id");
-					 return "can't search id";
+					 System.out.println("---------------------------------can't search id-----------------------");
 				 }
 				}
 		} catch (SQLException e) {

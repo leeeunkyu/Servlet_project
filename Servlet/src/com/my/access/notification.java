@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.access;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,36 +8,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TestClass
+ * Servlet implementation class notification
  */
-@WebServlet("/TestClass")
-public class TestClass extends HttpServlet {
+@WebServlet("/notification")
+public class notification extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     UserRegister user;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestClass() {
+    public notification() {
         super();
         // TODO Auto-generated constructor stub
     }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("TEST");
+		System.out.println("알림요청");
+		broadsocket bs = new broadsocket();
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String result;
-		JsonProcess jp = new JsonProcess();
-		result=jp.process(request,response);
-		response.getWriter().append(result);
-	//	doGet(request, response);
+		doGet(request, response);
 	}
 
 }
