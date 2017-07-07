@@ -52,7 +52,7 @@ public class JsonProcess {
 			return result;
 		case "log":
 			System.out.println("--------------------------------출입기록 시도------------------------");
-			CheckLog cl = new CheckLog(array[7],array[11]);
+			CheckLog cl = new CheckLog(array[7]);
 			result=cl.log();
 			System.out.println("--------------------------------출입기록 확인------------------------");
 

@@ -139,7 +139,7 @@ public class JDBC {
 		}
 	}
 	
-	public String UserLog(String id, String pwd) {
+	public String UserLog(String id) {
 		// TODO Auto-generated method stub
 		try {
 			dburl = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -151,7 +151,7 @@ public class JDBC {
 				// System.out.println(rs.getString("id"));
 				 //System.out.println(rs.getString("pwd"));
 				 if(id.equals(rs.getString("id"))){
-					 if(pwd.equals(rs.getString("pwd"))){
+					 if(true){
 						 if(logtext==null){
 							 logtext=rs.getString("datelog");
 						 }else{
