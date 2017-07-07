@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.manager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,12 +9,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.my.log.CheckLog;
+
 
 
 public class JsonProcess {
     UserRegister user_regi;
     UserLogin user_login;
-    String result;
+    String result=null;
 	public String test(String[] array, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		switch (array[3]) {
@@ -47,6 +49,13 @@ public class JsonProcess {
 			result = user_login.checkuser();
 			System.out.println("로그인 리턴값---------> "+result);
 //			response.setHeader("result: ", result);
+			return result;
+		case "log":
+			System.out.println("--------------------------------출입기록 시도------------------------");
+			CheckLog cl = new CheckLog(array[7],array[11]);
+			result=cl.log();
+			System.out.println("--------------------------------출입기록 확인------------------------");
+
 			return result;
 		default:
 			System.out.println("test용");

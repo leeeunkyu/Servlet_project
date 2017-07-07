@@ -2,11 +2,11 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>TestClass</display-name>
   <servlet>
-    <servlet-name>TestClass</servlet-name>
-    <servlet-class>com.my.test.TestClass</servlet-class>
+    <servlet-name>Manager</servlet-name>
+    <servlet-class>com.my.manager.Manager</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>TestClass</servlet-name>
+    <servlet-name>Manager</servlet-name>
     <url-pattern>/servers</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -19,7 +19,7 @@
   </servlet>
   <filter>
     <filter-name>CorsFilter</filter-name>
-    <filter-class>com.my.test.CorsFilter</filter-class>
+    <filter-class>com.my.manager.CorsFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>CorsFilter</filter-name>

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.my.manager.JsonProcess;
+
 /**
  * Servlet implementation class Log
  */
@@ -31,10 +33,9 @@ public class Log extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("출입기록 확인");
-		String result;
-		CheckLog cl = new CheckLog("id","pwd");
-		result=cl.log();
+		String result=null;
+		JsonProcess jp = new JsonProcess();
+		result=jp.process(request,response);
 		System.out.println(result);
 		response.getWriter().append(result);
 
@@ -45,8 +46,12 @@ public class Log extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-		
+		System.out.println("출입기록 확인");
+		String result;
+		JsonProcess jp = new JsonProcess();
+		result=jp.process(request,response);
+		System.out.println(result);
+		response.getWriter().append(result);
 	}
 
 }

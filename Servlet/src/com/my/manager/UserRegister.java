@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.manager;
 
 public class UserRegister {
 	String user_id;

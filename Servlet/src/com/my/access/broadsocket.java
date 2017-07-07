@@ -37,19 +37,37 @@ public class broadsocket {
      */
     @OnMessage
     public void handleMessage(String message,Session userSession) throws IOException{
-        String username = (String)userSession.getUserProperties().get("username");
-        //세션 프로퍼티에 username이 없으면 username을 선언하고 해당 세션을으로 메시지를 보낸다.(json 형식이다.)
-        //최초 메시지는 username설정
-        if(username == null){
-            userSession.getUserProperties().put("username", message);
-            userSession.getBasicRemote().sendText(buildJsonData("System", "you are now connected as " + message));
-            return;
-        }
+    	String[] s_array = new String[3];
+//        String username = (String)userSession.getUserProperties().get("username");
+//        //세션 프로퍼티에 username이 없으면 username을 선언하고 해당 세션을으로 메시지를 보낸다.(json 형식이다.)
+//        //최초 메시지는 username설정
+//        if(username == null){
+//            userSession.getUserProperties().put("username", message);
+//            userSession.getBasicRemote().sendText(buildJsonData("System", "you are now connected as " + message));
+//            return;
+//        }
         //username이 있으면 전체에게 메시지를 보낸다.
-        Iterator<Session> iterator = sessionUsers.iterator();
-        while(iterator.hasNext()){
-            iterator.next().getBasicRemote().sendText(buildJsonData(username,message));
-        }
+    	s_array=message.split(",");
+    	System.out.println(s_array[0]);
+    	System.out.println(s_array[1]);
+    	System.out.println(s_array[2]);
+    	if(s_array[0].equals("client_ok")){
+    		Verify vf= new Verify("id");
+    		//Verify vf= new Verify(s_array[1]);
+			vf.VerifyUser();
+			Iterator<Session> iterator = sessionUsers.iterator();
+    		while(iterator.hasNext()){
+    			//도어락에서 받은 key,id값 클라이언트로 전송
+    	        iterator.next().getBasicRemote().sendText(s_array[0]);
+    	     }
+    	}else{
+    		Iterator<Session> iterator = sessionUsers.iterator();
+    		while(iterator.hasNext()){
+    			//도어락에서 받은 key,id값 클라이언트로 전송
+    	        iterator.next().getBasicRemote().sendText(message);
+    	     }	
+    	}
+    	System.out.println(s_array[2]);
     }
     /**
      * 웹소켓을 닫으면 해당 유저를 유저리스트에서 뺀다.
@@ -58,16 +76,6 @@ public class broadsocket {
     @OnClose
     public void handleClose(Session userSession){
         sessionUsers.remove(userSession);
-    }
-    /**
-     * json타입의 메시지 만들기
-     * @param username
-     * @param message
-     * @return
-     */
-    public String buildJsonData(String username,String message){
-    
-        return username+message;
     }
 }
 

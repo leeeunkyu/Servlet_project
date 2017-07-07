@@ -1,6 +1,6 @@
 package com.my.log;
 
-import com.my.test.JDBC;
+import com.my.manager.JDBC;
 
 public class CheckLog {
 	String user_id;

@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.manager;
 
 public class Filter_user {
 	String user_id;

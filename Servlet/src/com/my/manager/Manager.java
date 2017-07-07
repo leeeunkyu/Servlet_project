@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.manager;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class TestClass
  */
 @WebServlet("/TestClass")
-public class TestClass extends HttpServlet {
+public class Manager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      UserRegister user;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestClass() {
+    public Manager() {
         super();
         // TODO Auto-generated constructor stub
     }

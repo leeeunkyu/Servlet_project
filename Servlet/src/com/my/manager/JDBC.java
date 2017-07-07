@@ -1,4 +1,4 @@
-package com.my.test;
+package com.my.manager;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -114,7 +114,7 @@ public class JDBC {
 	
 	}
 
-	public void UserVerify(String id, String pwd) {
+	public void UserVerify(String id) {
 		// TODO Auto-generated method stub
 		//승인이 된다는 가정하에
 		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy.MM.dd HH:mm:ss", Locale.KOREA );
@@ -122,7 +122,7 @@ public class JDBC {
 		String dTime = formatter.format ( currentTime );
 		System.out.println ( dTime );
 		try{
-			System.out.println("문이 열렸습니다.");	
+			System.out.println("-----------------------------문이 열렸습니다.--------------------");	
 
 			dburl = "jdbc:oracle:thin:@localhost:1521:xe";
 			con = DriverManager.getConnection(dburl, db_id, db_pw);
@@ -130,7 +130,7 @@ public class JDBC {
 			pstmt.setString(1, id);
 			pstmt.setString(2, dTime);
 			pstmt.executeUpdate();
-			System.out.println("출입 기록완료");	
+			System.out.println("--------"+dTime+"---출입 기록완료------------------------");	
 			
 		} catch(IllegalArgumentException e){
 			System.out.println("입력 형태를 확인하세요");
