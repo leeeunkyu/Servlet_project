@@ -155,13 +155,13 @@ public class JDBC {
 						 if(logtext==null){
 							 logtext=rs.getString("datelog");
 						 }else{
-							 logtext +="," +rs.getString("datelogd");
+							 logtext +="," +rs.getString("datelog");
 						 }
 					}
 				 }
 				}
 			
-			System.out.println(logtext);
+			System.out.println("±â·Ï"+logtext);
 			return logtext;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

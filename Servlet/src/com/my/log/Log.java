@@ -33,11 +33,11 @@ public class Log extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String result=null;
-		JsonProcess jp = new JsonProcess();
-		result=jp.process(request,response);
-		System.out.println(result);
-		response.getWriter().append(result);
+//		String result=null;
+//		JsonProcess jp = new JsonProcess();
+//		result=jp.process(request,response);
+//		System.out.println(result);
+		//response.getWriter().append(result);
 
 	}
 
