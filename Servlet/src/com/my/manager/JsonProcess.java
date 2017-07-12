@@ -17,6 +17,12 @@ public class JsonProcess {
     UserRegister user_regi;
     UserLogin user_login;
     String result=null;
+    private static final int KEY_SIZE = 128;
+    private static final int ITERATION_COUNT = 10000;
+    private static final String IV = "F27D5C9927726BCEFE7510B1BDD3D137";
+    private static final String SALT = "3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
+    private static final String PASSPHRASE = "passPhrase passPhrase aes encoding algorithm";
+    private static final String PLAIN_TEXT = "AES ENCODING ALGORITHM PLAIN TEXT";    
 	public String test(String[] array, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		switch (array[3]) {
@@ -45,7 +51,15 @@ public class JsonProcess {
 
 		case "sign in":
 			System.out.println("--------------------------------로그인시도--------------------------");
-			user_login=new UserLogin(array[7],array[11]);
+			String de_pwd=null;
+			System.out.println("암호화된 비밀번호=====>"+array[11]);
+			
+			AesUtil util = new AesUtil(KEY_SIZE, ITERATION_COUNT);
+//	        String encrypt = util.encrypt(SALT, IV, PASSPHRASE, PLAIN_TEXT);
+			de_pwd = util.decrypt(SALT, IV, PASSPHRASE, array[11]);
+	  
+			System.out.println("복호화======>"+de_pwd);
+			user_login=new UserLogin(array[7],de_pwd);
 			result = user_login.checkuser();
 			System.out.println("로그인 리턴값---------> "+result);
 //			response.setHeader("result: ", result);
