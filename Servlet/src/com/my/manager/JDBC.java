@@ -94,7 +94,7 @@ public class JDBC {
 					 if(checktext==(rs.getInt("salt"))){
 						 returnpwd=hashpwd(checktext, pwd);
 						 if(returnpwd.equals(rs.getString("pwd"))){
-							 System.out.println("----------------------------정상적인 로그인-------------------");
+							 System.out.println("----------------------------아이디 비번 일치------------------");
 							 return "success";
 						 }else{
 							 System.out.println("----------------------------can't search pwd---------------");
@@ -110,7 +110,7 @@ public class JDBC {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "failed";
+		return "failed,00,00";
 	
 	}
 

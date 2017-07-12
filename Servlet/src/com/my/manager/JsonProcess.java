@@ -17,8 +17,9 @@ public class JsonProcess {
     UserRegister user_regi;
     UserLogin user_login;
     String result=null;
+    Challenge challenge;
     private static final int KEY_SIZE = 128;
-    private static final int ITERATION_COUNT = 10000;
+    private static final int ITERATION_COUNT = 100;
     private static final String IV = "F27D5C9927726BCEFE7510B1BDD3D137";
     private static final String SALT = "3FF2EC019C627B945225DEBAD71A01B6985FE84C95A70EB132882F88C0A59A55";
     private static final String PASSPHRASE = "passPhrase passPhrase aes encoding algorithm";
@@ -52,6 +53,7 @@ public class JsonProcess {
 		case "sign in":
 			System.out.println("--------------------------------로그인시도--------------------------");
 			String de_pwd=null;
+			String challenge_text=null;
 			System.out.println("암호화된 비밀번호=====>"+array[11]);
 			
 			AesUtil util = new AesUtil(KEY_SIZE, ITERATION_COUNT);
@@ -63,7 +65,15 @@ public class JsonProcess {
 			result = user_login.checkuser();
 			System.out.println("로그인 리턴값---------> "+result);
 //			response.setHeader("result: ", result);
-			return result;
+			if(result.equals("success")){
+				challenge=new Challenge();
+				challenge_text=challenge.toclinet();
+			System.out.println("보낸 첼런지 값 =====>"+challenge_text);
+				return challenge_text;
+			}
+				else{
+					return result;
+			}
 		case "log":
 			System.out.println("--------------------------------출입기록 시도------------------------");
 //			CheckLog cl = new CheckLog(array[7]);
@@ -73,6 +83,13 @@ public class JsonProcess {
 			System.out.println("--------------------------------출입기록 확인------------------------");
 
 			return result;
+		case "response":
+			String Challenge_res=null;
+			System.out.println("--------------------------------리스폰 확인---------------------------");
+			challenge=new Challenge();
+			Challenge_res=challenge.toresponse(array[7]);
+			System.out.println("받은 리스폰값 ========>"+array[7]);
+					return Challenge_res;
 		default:
 			System.out.println("test용");
 			break;
