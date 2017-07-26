@@ -51,9 +51,9 @@ public class JDBC {
 			pstmt.setString(2, Sha_result);
 			pstmt.setInt(3, salt);
 			pstmt.executeUpdate();
-			System.out.println("저장된 id -> "+id);
-			System.out.println("저장된 패스워드 -> "+Sha_result);
-			System.out.println("저장된 salt -> "+salt);
+			System.out.println("저장된 id ==========> "+id);
+			System.out.println("저장된 패스워드 ==========> "+Sha_result);
+			System.out.println("저장된 salt ==========> "+salt);
 			System.out.println("---------------------회원등록완료---------------------");	
 			return "success";
 			
@@ -61,6 +61,9 @@ public class JDBC {
 			System.out.println("입력 형태를 확인하세요");
 		}catch(SQLException e){
 			e.printStackTrace();
+		}finally{
+			if(con != null){try{con.close();}catch(Exception e){}}
+			if(pstmt != null){try{pstmt.close();}catch(Exception e){}}
 		}
 		return "failed";
 		
@@ -88,7 +91,6 @@ public class JDBC {
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				 System.out.println("id 검색결과-->"+rs.getString("id"));
-				 System.out.println("id 검색결과2-->"+rs.getString("id").toString());
 
 				 if(id.equals(rs.getString("id"))){
 					 if(checktext==(rs.getInt("salt"))){
@@ -97,20 +99,21 @@ public class JDBC {
 							 System.out.println("----------------------------아이디 비번 일치------------------");
 							 return "success";
 						 }else{
-							 System.out.println("----------------------------can't search pwd---------------");
 						 }
 					 }else{
-						 System.out.println("--------------------------------salt error----------------------");
 					 }
 				 }else{
-					 System.out.println("---------------------------------can't search id-----------------------");
 				 }
 				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if(con != null){try{con.close();}catch(Exception e){}}
+			if(pstmt != null){try{pstmt.close();}catch(Exception e){}}
+			if(rs != null){try{rs.close();}catch(Exception e){}}
 		}
-		return "failed,00,00";
+		return "failed";
 	
 	}
 
@@ -136,6 +139,10 @@ public class JDBC {
 			System.out.println("입력 형태를 확인하세요");
 		}catch(SQLException e){
 			e.printStackTrace();
+		}finally{
+			if(con != null){try{con.close();}catch(Exception e){}}
+			if(pstmt != null){try{pstmt.close();}catch(Exception e){}}
+			if(rs != null){try{rs.close();}catch(Exception e){}}
 		}
 	}
 	
@@ -144,13 +151,16 @@ public class JDBC {
 		try {
 			dburl = "jdbc:oracle:thin:@localhost:1521:xe";
 			con = DriverManager.getConnection(dburl, db_id, db_pw);
-			pstmt = con.prepareStatement("SELECT * FROM DATELOG");
+			pstmt = con.prepareStatement("SELECT * FROM DATELOG WHERE id=?");
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
+			System.out.println("검색한 사용자 이름=======>"+id);
 			String logtext=null;
 			while(rs.next()){
 				// System.out.println(rs.getString("id"));
 				 //System.out.println(rs.getString("pwd"));
 				 if(id.equals(rs.getString("id"))){
+						System.out.println("검색된 사용자 이름=======>"+id);
 					 if(true){
 						 if(logtext==null){
 							 logtext=rs.getString("datelog");
@@ -166,6 +176,10 @@ public class JDBC {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if(con != null){try{con.close();}catch(Exception e){}}
+			if(pstmt != null){try{pstmt.close();}catch(Exception e){}}
+			if(rs != null){try{rs.close();}catch(Exception e){}}
 		}
 		return "failed";
 
@@ -174,12 +188,6 @@ public class JDBC {
 	public String hashpwd(int salt,String pwd) {
 		try {
 			String Sha="";
-			//byte[] usr_pwd=pwd.getBytes();
-			//byte[] hash_pwd=new byte[usr_pwd.length+salt.length];
-//			System.out.println("유저 비밀번호 바이트화"+usr_pwd);
-
-//			System.arraycopy(usr_pwd, 0, hash_pwd, 0, usr_pwd.length);
-//	        System.arraycopy(salt, 0, hash_pwd, usr_pwd.length, salt.length);
 			pwd+=salt;
 			MessageDigest md;
 			md = MessageDigest.getInstance("SHA-256");
@@ -191,8 +199,6 @@ public class JDBC {
 		      sb.append(Integer.toString((byteData[i] & 0xFF) + 256, 16).substring(1));
 		     }
 		     Sha=sb.toString();
-//		     System.out.println("해쉬화 된 비밀번호 "+Sha + "  솔트값 "+salt );
-//		     System.out.println("회원등록시도");
 		     return Sha;
 
 		} catch (NoSuchAlgorithmException e) {
@@ -219,6 +225,10 @@ public class JDBC {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			if(con != null){try{con.close();}catch(Exception e){}}
+			if(pstmt != null){try{pstmt.close();}catch(Exception e){}}
+			if(rs != null){try{rs.close();}catch(Exception e){}}
 		}
 		return "id_ok";		
 	}

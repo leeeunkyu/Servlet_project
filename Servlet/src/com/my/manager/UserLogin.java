@@ -5,7 +5,7 @@ public class UserLogin {
 	String user_pwd;
 	public UserLogin(String id, String pwd) {
 		// TODO Auto-generated constructor stub
-		System.out.println("로그인 -> id값: "+id+"  /pwd값:  "+pwd);
+		System.out.println("로그인 =====> id값: "+id+"       pwd값:  "+pwd);
 		user_id=id;
 		user_pwd=pwd;
 	}

@@ -29,7 +29,7 @@ public class broadsocket {
      */
     @OnOpen
     public void handleOpen(Session userSession){
-        System.out.println("호출");
+        System.out.println("-----------------------웹소켓 사용자 연결--------------------------");
         System.out.println(userSession);
         sessionUsers.add(userSession);
     }
@@ -52,9 +52,6 @@ public class broadsocket {
     	//3.key , id , 고유번호
 
     	s_array=message.split(",");
-    	System.out.println(s_array[0]);
-    	System.out.println(s_array[1]);
-    	System.out.println(s_array[2]);
 //    	if(username == null){
 //            userSession.getUserProperties().put("username", s_array[1]);
 //            System.out.println(userSession.getUserProperties());
@@ -62,7 +59,7 @@ public class broadsocket {
 //         //   sessionUsers_list.put(s_array[2], userSession);
 //        }
     	if(s_array[0].equals("client_ok")){
-    		System.out.println("승인했음");
+    		System.out.println("-------------------클라이언트 승인 완료-----------------");
     		//Verify vf= new Verify("id");
     		Verify vf= new Verify(s_array[1]);
 			vf.VerifyUser();
@@ -73,7 +70,7 @@ public class broadsocket {
 			while(iterator.hasNext()){
     			//도어락에서 받은 key,id값 클라이언트로 전송
     	        iterator.next().getBasicRemote().sendText("open the door");
-    	        System.out.println("문열림");
+    	        System.out.println("-------------------------문열림---------------------");
     	     }
     	}else if(s_array[0].equals("init")){
            if(NJ.Socketfilter(s_array[1])=="success" ){

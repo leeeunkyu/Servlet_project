@@ -31,7 +31,6 @@ public class JsonProcess {
 			System.out.println("--------------------------------회원가입 시도------------------------");
 			String result=null;
 			String filter_result=null;
-			System.out.println("test");
 			Filter_user fu = new Filter_user(array[7],array[11]);
 			filter_result=fu.filtering_id();
 			if(filter_result.equals("id_ok")){
@@ -54,30 +53,30 @@ public class JsonProcess {
 			System.out.println("--------------------------------로그인시도--------------------------");
 			String de_pwd=null;
 			String challenge_text=null;
-			System.out.println("암호화된 비밀번호=====>"+array[11]);
+			System.out.println("암호화된 비밀번호=======>"+array[11]);
 			
 			AesUtil util = new AesUtil(KEY_SIZE, ITERATION_COUNT);
 //	        String encrypt = util.encrypt(SALT, IV, PASSPHRASE, PLAIN_TEXT);
 			de_pwd = util.decrypt(SALT, IV, PASSPHRASE, array[11]);
 	  
-			System.out.println("복호화======>"+de_pwd);
+			System.out.println("복호화==========>"+de_pwd);
 			user_login=new UserLogin(array[7],de_pwd);
 			result = user_login.checkuser();
-			System.out.println("로그인 리턴값---------> "+result);
+			System.out.println("로그인 리턴값==========> "+result);
 //			response.setHeader("result: ", result);
 			if(result.equals("success")){
 				challenge=new Challenge();
 				challenge_text=challenge.toclinet();
-			System.out.println("보낸 첼런지 값 =====>"+challenge_text);
+			System.out.println("보낸 첼런지 값 ==========>"+challenge_text);
 				return challenge_text;
 			}
-				else{
+			else{
 					return result;
 			}
 		case "log":
 			System.out.println("--------------------------------출입기록 시도------------------------");
 //			CheckLog cl = new CheckLog(array[7]);
-			CheckLog cl = new CheckLog("id");
+			CheckLog cl = new CheckLog(array[7]);
 
 			result=cl.log();
 			System.out.println("--------------------------------출입기록 확인------------------------");
@@ -100,7 +99,7 @@ public class JsonProcess {
 			throws ServletException, IOException {
 		String result = JsonProcess.getBody(req);
 		String[] array = result.split("\"");
-		System.out.println("json 결과값"+result);		
+		System.out.println("json 결과값===>"+result);		
 		
 		return test(array, resp);
 	}
